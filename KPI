@@ -1,0 +1,48 @@
+KPI_SCALE
+{
+	id: 1,
+	KPI: [
+			{category: "Core tech", items: [{name: "core tech tasks", unit: "item", mark: 10}, {name: "Tech seminia", unit: "item", mark: 5}]},
+			{category: "Work performance", items: [{name: "Dev tasks", unit: "item", mark: 20}, {name: "Team work", unit: "period", mark: 5}]}
+		 ],
+	version: "1.0.0"
+}
+
+USER_KPI
+{
+	id: 1,
+	user_id: 1357,
+	week_number: 14
+	KPI: [
+			{category: "Core tech", items: [{name: "core tech tasks", unit: "item", tasks: [{hard_level: 2},{hard_level: 1}], count: 2, mark: 20}, {name: "Tech seminia", unit: "item", count: 3, mark: 15}]},
+			{category: "Work performance", items: [{name: "Dev tasks", unit: "item", tasks: [{hard_level: 3}], count: 1, mark: 20}, {name: "Team work", unit: "period", mark: 5}]}
+		 ]
+}
+
+USER
+{
+	id: 1357,
+	name: "Nguyen Van A",
+	role: 1
+}
+
+ROLE
+{
+	id: number,
+	name: user, leader, part_leader,
+}
+
+CALENDAR
+{
+	year: 2014,
+	weeks: [{week_number: 14, start_date: "05-01", end_date: "10-01"}, {week_number: 15, start_date: "12-01", end_date: "17-01"}]
+}
+
+Stories
+	1. User view, input, update KPI weekly
+	2. User view total KPI til current
+	4. User view mark of hightest and lowest user
+	3. Leader view KPI of members, display ranking, detail for each member, search member by name, id
+	4. Leader update hard level for tasks weekly
+	5. Leader set period mark for user at end of period
+	6. Part leade view KPI of all users, ranking, search...
