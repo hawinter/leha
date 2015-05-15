@@ -1,0 +1,193 @@
+#include <stdio.h>
+#define MAX 100
+#define NULL 0
+
+/*------------ Stack Array -------------
+struct stack
+{
+	int stk[MAX];
+	int top;
+};
+
+typedef struct stack STACK;
+
+STACK s;
+
+void init()
+{
+	s.top = -1;	
+}
+
+void push(int data)
+{
+	if (s.top + 1 >= MAX)
+	{
+		printf("over flow\n");
+	} else
+	{
+		++s.top;
+		s.stk[s.top] = data;
+	}
+}
+
+int pop()
+{
+	if(s.top == -1)
+	{
+		printf("Stack is empty\n");
+		return 0;
+	} else
+	{
+		return s.stk[s.top--];
+	}
+}
+
+int isEmpty()
+{
+	if (s.top == -1)
+	{
+		return 1;
+	} else
+	{
+		return 0;
+	}
+}
+
+void display()
+{
+	if (isEmpty() == 1)
+	{
+		printf("Stack is empty\n");
+	} else
+	{
+		for (int i = s.top; i > -1; --i)
+		{
+			printf("%d\n", s.stk[i]);
+		}
+	}
+}
+-------------------------*/
+
+/*---------------- Stack linked list-------------*/
+
+struct node
+{
+	int data;
+	node* next;
+};
+
+struct stack 
+{
+	node* top;
+	int count;
+};
+
+typedef struct stack STACK;
+STACK s;
+
+void init()
+{
+	s.top = NULL;
+	s.count = 0;
+}
+
+void push(int data)
+{
+	if(s.top == NULL)
+	{
+		s.top = new node;
+		s.top->data = data;
+		s.top->next = NULL;
+	} else
+	{
+		node* element = new node;
+		element->data = data;
+		element->next = s.top;
+		s.top = element;
+	}
+	s.count++;
+}
+
+int pop()
+{
+	if (s.top == NULL)
+	{
+		printf("Stack is empty\n");
+		return 0;
+	} else
+	{
+		int data = s.top->data;
+		node* tmp = s.top;
+		s.top = s.top->next;
+		delete tmp;
+		s.count--;
+		return data;
+	}
+}
+
+int isEmpty()
+{
+	if(s.top == 0)
+	{
+		return 1;
+	} else
+	{
+		return 0;
+	}
+}
+
+int getTop()
+{
+	return s.top->data;
+}
+
+void display()
+{
+	node* tmp = s.top;
+	printf("Stack elements:\n");
+	while(tmp != NULL)
+	{
+		printf("%d\n", tmp->data);
+		tmp = tmp->next;
+	}
+}
+
+
+void main ()
+{
+    int choice;
+    int option = 1;
+    init();
+ 
+    printf ("STACK OPERATION\n");
+    while (option)
+    {
+        printf ("------------------------------------------\n");
+        printf ("      1    -->    PUSH               \n");
+        printf ("      2    -->    POP               \n");
+        printf ("      3    -->    DISPLAY               \n");
+        printf ("      4    -->    EXIT           \n");
+        printf ("------------------------------------------\n");
+ 
+        printf ("Enter your choice\n");
+        scanf    ("%d", &choice);
+        switch (choice)
+        {
+        case 1:
+            push(1);
+            break;
+        case 2:
+            pop();
+            break;
+        case 3:
+            display();
+            break;
+        case 4:
+            return;
+        }
+        fflush (stdin);
+        printf ("Do you want to continue(Type 0 or 1)?\n");
+        scanf    ("%d", &option);
+    }
+}
+
