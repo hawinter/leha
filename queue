@@ -1,0 +1,196 @@
+#include <stdio.h>
+#define MAX 100
+#define NULL 0
+
+/*----------Array-----------
+struct queue 
+{
+	int data[MAX];
+	int head;
+	int tail;
+	int size;
+};
+
+typedef struct queue QUEUE;
+QUEUE q;
+
+void init()
+{
+	q.size = 0;
+	q.head = q.tail = -1;
+}
+
+void enQueue(int data)
+{
+	if(q.tail == MAX - 1)
+	{
+		printf("Queue oveflow");
+		return;
+	}
+	
+	if(q.head == -1)
+	{
+		q.head++;
+		q.tail++;
+		q.data[q.tail] = data;
+	}else
+	{
+		q.data[++q.tail] = data;
+	}
+
+	q.size++;
+}
+
+int deQueue()
+{
+	if (q.head == - 1 || q.head > q.tail)
+    {
+        printf("Queue Underflow \n");
+        return -1;
+    }
+
+	if(q.head == -1)
+	{
+		printf("Queue is empty");
+		return -1;
+	}else
+	{
+		return q.data[q.head++];
+	}
+	q.size--;
+}
+
+int isEmpty()
+{
+	if(q.head == -1)
+	{
+		return 1;
+	}else
+	{
+		return 0;
+	}
+}
+
+void display()
+{
+	printf("Queue:\n");
+	for(int i = q.head; i <= q.tail; i++)
+	{
+		printf("%d\n", q.data[i]);
+	}
+}
+
+*/
+
+/*-----------------struct-----------*/
+
+struct node
+{
+	int data;
+	node* next;
+} *head, *tail;
+int size;
+
+void init()
+{
+	head = tail = NULL;
+	size = 0;
+}
+
+void enQueue(int data)
+{
+	node* tmp = new node;
+	tmp->data = data;
+	tmp->next = NULL;
+	if(tail == NULL)
+	{
+		head = tail = tmp;
+	}else
+	{
+		tail->next = tmp;
+		tail = tmp;
+	}
+	size++;
+}
+
+int deQueue()
+{
+	if(head == NULL)
+	{
+		printf("Queue is empty");
+		return -1;
+	}else if(head->next != NULL)
+	{
+		node* tmp = head;
+		int data = head->data;
+		head = head->next;
+		delete tmp;
+		return data;
+	}else
+	{
+		delete head;
+		head = tail = NULL;
+	}
+	size--;
+}
+
+int isEmpty()
+{
+	if(head == NULL && tail == NULL)
+	{
+		return 1;
+	}else
+	{
+		return 0;
+	}
+}
+
+void display()
+{
+	if(isEmpty() == 1)
+	{
+		printf("Queue is empty\n");
+		return;
+	}
+	node* tmp = head;
+	while (tmp != tail)
+	{
+		printf("%d\n", tmp->data);
+		tmp=tmp->next;
+	}
+	if(tmp == tail)
+	{
+		printf("%d\n", tmp->data);
+	}
+}
+
+void main()
+{
+	init();
+    int choice;
+    while (1)
+    {
+        printf("1.Insert element to queue \n");
+        printf("2.Delete element from queue \n");
+        printf("3.Display all elements of queue \n");
+        printf("4.Quit \n");
+        printf("Enter your choice : ");
+        scanf("%d", &choice);
+        switch (choice)
+        {
+            case 1:
+            enQueue(1);
+            break;
+            case 2:
+            deQueue();
+            break;
+            case 3:
+            display();
+            break;
+            case 4:
+            return;
+            default:
+            printf("Wrong choice \n");
+        } /*End of switch*/
+    } /*End of while*/
+} /*End of main()*/
