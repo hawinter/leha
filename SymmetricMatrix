@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+int main()
+{
+	int T;
+	int N;
+	char* s = new char[128];
+	char a[128][128];
+
+	freopen("sample_input.txt", "r", stdin);
+
+	scanf("%d", &T);
+
+	for(int tc = 0; tc < T; tc++)
+	{
+		scanf("%d\n", &N);
+		gets(s);
+
+		int k = 0;
+		for (int i = 0; i < N; i++)
+		{
+			for (int j = 0; j < N; j++)
+			{
+				if(i == 0)
+				{ 
+					a[i][j] = s[k];
+					k += 2;
+				} else if(i == j)
+				{
+					a[i][j] = s[0];
+				} else if (j >= N/2)
+				{
+					a[i][j] = a[i-1][j-1];
+				} else
+				{
+					a[i][j] = a[i-1][j+1];
+				}
+
+				printf("%c ", a[i][j]);
+			}
+			printf("\n");
+		}
+		printf("--------------\n");
+	}
+
+	return 0;
+}
