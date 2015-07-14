@@ -1,0 +1,120 @@
+#include<iostream>
+
+using namespace std;
+
+template <class T>
+class Queue
+{
+	private:
+		struct Node
+		{
+			T data;
+			Node *next;
+			Node(const T &data)
+			{
+				this->data = data;
+				next = NULL;
+			}
+		};
+
+		Node *tail;
+
+	public:
+		Queue()
+		{
+			tail = NULL;
+		}
+		bool isEmpty();
+		void enQueue(const T data);
+		T deQueue();
+};
+
+template <class T>
+bool Queue<T>::isEmpty()
+{
+	return (tail == NULL);
+}
+
+template <class T>
+void Queue<T>::enQueue(const T data)
+{
+	if(isEmpty())
+	{
+		tail = new Node(data);
+		tail->next = tail;
+	}else
+	{
+		Node *tmp = tail->next;
+		tail = tail->next = new Node(data);
+		tail->next = tmp;
+	}
+}
+
+template <class T>
+T Queue<T>::deQueue()
+{
+	T data;
+	if(isEmpty())
+	{
+		cout << "Queue is empty" << endl;
+		return data;
+	}else
+	{
+		Node *tmp = tail->next;
+		data = tmp->data;
+		if(tmp != tail)
+		{
+			tail->next = tmp->next;
+		}else
+		{
+			tail = NULL;
+		}
+		delete tmp;
+	}
+	return data;
+}
+
+class Chess
+{
+	public:
+		int x;
+		int y;
+	
+	public:
+		Chess(){}
+		Chess(int x, int y)
+		{
+			this->x = x;
+			this->y = y;
+		}
+};
+
+int main()
+{
+	Queue<Chess> Q;
+
+	Chess chess1(1,1);
+	Chess chess2(2,2);
+	Chess chess3(3,3);
+	Chess chess4(4,4);
+	Chess chess5(5,5);
+
+	Q.enQueue(chess1);
+	Q.enQueue(chess2);
+	Q.enQueue(chess3);
+	Q.enQueue(chess4);
+	Q.enQueue(chess5);
+
+	for (int i = 1; i <= 5; i++)
+	{
+		Chess chess = Q.deQueue();
+		cout << chess.x << "," << chess.y << endl;
+	}
+
+	cout << "------------" << endl;
+	Chess chess(6,6);
+	Q.enQueue(chess);
+	cout << chess.x << "," << chess.y << endl;
+
+	return 0;
+}
